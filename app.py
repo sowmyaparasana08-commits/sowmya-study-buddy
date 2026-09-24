@@ -73,4 +73,4 @@ if uploaded_file:
         st.balloons()
         st.success("12 Real PDF Questions Ready! 🎉")
 else:
-    st.info("PDF upload chey!")
+    st.info("upload your pdf!")
