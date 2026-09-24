@@ -7,20 +7,14 @@ st.set_page_config(page_title="Study Buddy - Sowmya", page_icon="📚")
 
 st.markdown("""
 <style>
-.stApp {
-    background-color: #ffe4ec;
-}
-.stApp p, .stApp div, .stApp label, .stApp span, .stApp li {
-    color: #000000 !important;
-}
-h1, h2, h3 {
-    color: #b4004e !important;
-}
+.stApp { background-color: #ffe4ec; }
+.stApp p, .stApp div, .stApp label, .stApp span, .stApp li { color: #000000 !important; }
+h1, h2, h3 { color: #b4004e !important; }
 </style>
 """, unsafe_allow_html=True)
 
-st.title("📚 Sowmya's SUPER Study Buddy!")
-st.write("PDF upload chey - Summary + Quiz ostundi! 💖")
+st.title("🌸 Sowmya's SUPER Study Buddy!")
+st.write("PDF upload chey - Summary + 12 Questions ostundi! 📖")
 
 uploaded_file = st.file_uploader("PDF ikkada pettu", type="pdf")
 
@@ -29,26 +23,28 @@ if uploaded_file:
     text = ""
     for page in reader.pages:
         t = page.extract_text()
-        if t:
-            text += t + "\n"
-    st.success(f"i have studied! {len(reader.pages)} pages 💖")
-    tab1, tab2, tab3 = st.tabs(["📄 Full Text", "✨ Summary", "📝 Quiz"])
-    with tab1:
-        st.text_area("Content", text[:8000], height=400)
-    with tab2:
-        st.subheader("5 Points Summary:")
-        sents = [s.strip() for s in re.split(r'[.!?]+', text) if len(s.strip()) > 30]
-        for i, s in enumerate(sents[:5], 1):
-            st.write(f"**{i}.** {s}.")
-    with tab3:
-        st.subheader("Quiz!")
-        sents = [s.strip() for s in re.split(r'[.!?]+', text) if 20 < len(s.strip()) < 150]
-        if len(sents) >= 3:
-            for i, s in enumerate(random.sample(sents, 3), 1):
-                st.write(f"**Q{i}:** {s}")
-                st.radio(f"Answer Q{i}", ["Correct", "Wrong", "i dont know"], key=f"q{i}", horizontal=True)
-            if st.button("Submit"):
-                st.balloons()
-                st.success("Super Sowmya! Quiz Done! 🎉💖")
-else:
-    st.warning("upload your pdf Sowmya 💖")
+        if t: text += t + "\n"
+    
+    if text:
+        st.success("I have studied the pdf! ✅")
+        st.header("📝 Summary")
+        sentences = re.split(r'[.!?]+', text)
+        sentences = [s.strip() for s in sentences if len(s.strip()) > 20]
+        st.write(". ".join(sentences[:8]) + ".")
+        
+        st.header("🧠 Quiz - 12 Questions (10-15)")
+        quiz_count = 12
+        for i in range(1, quiz_count + 1):
+            if sentences:
+                base = sentences[random.randint(0, len(sentences)-1)][:90]
+            else:
+                base = text[:90]
+            st.subheader(f"Q{i}. What is main idea of: '{base}...'?")
+            options = [f"Option A - Q{i}", f"Option B - Correct (from PDF)", f"Option C - Q{i}", f"Option D - Q{i}"]
+            random.shuffle(options)
+            st.radio(f"Answer for Q{i}", options, key=f"q{i}")
+            st.write("---")
+        st.balloons()
+        st.success(f"Total {quiz_count} questions ready! 🔥")
+    else:
+        st.error("PDF lo text ledu!")
