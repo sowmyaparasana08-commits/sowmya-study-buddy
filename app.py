@@ -3,7 +3,7 @@ import PyPDF2
 import random
 import re
 
-st.set_page_config(page_title="Sowmya's Study Buddy", page_icon="📚")
+st.set_page_config(page_title="united minds Study Buddy", page_icon="📚")
 st.markdown("""
 <style>
 .stApp { background-color: #ffe4ec!important; }
@@ -12,7 +12,7 @@ p, span, label { color: #000!important; }
 </style>
 """, unsafe_allow_html=True)
 
-st.title("🌸 Sowmya's Study Buddy - With Answers!")
+st.title("🌸 united minds Study Buddy - With Answers!")
 st.write("it will also show the correct answers now!")
 
 uploaded_file = st.file_uploader("upload the pdf", type="pdf")
