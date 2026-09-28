@@ -60,7 +60,7 @@ if uploaded_file:
                 st.error(f"❌ Wrong! Correct is: {qitem['correct']}")
         st.divider()
 
-    if st.button("🔄 New Quiz - Same PDF tho malli"):
+    if st.button("🔄 New Quiz - again with same pdf"):
         del st.session_state.quiz_ready
         st.rerun()
 
